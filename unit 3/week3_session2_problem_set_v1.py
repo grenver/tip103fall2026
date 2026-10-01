@@ -1,9 +1,19 @@
 """UPI solutions for Week 3, Session 2, Problem Set Version 1."""
 
+from collections import deque
 
-# 1. U: Lower complexity goes first. P: Sort the submitted complexities.
+
+# 1. U: Lower complexity goes first. P: Move a front blueprint to the back
+# if a simpler blueprint is waiting; otherwise approve it.
 def blueprint_approval(blueprints):
-    return sorted(blueprints)
+    queue = deque(blueprints)
+    approval_order = []
+    while queue:
+        simplest = min(queue)
+        while queue[0] != simplest:
+            queue.append(queue.popleft())
+        approval_order.append(queue.popleft())
+    return approval_order
 
 
 # 2. U: A new floor can sit on the current skyscraper only when it is no taller

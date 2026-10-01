@@ -2,15 +2,32 @@
 
 ## 1. Blueprint Approval Process — `blueprint_approval(blueprints)`
 
-Given submitted blueprint complexity levels, return the approval order: lower complexities first.
+Given submitted blueprint complexity levels in submission order, simulate approval using a queue. Lower complexities must be approved before higher complexities. Return the complexity values in approval order.
 
 ```python
 blueprint_approval([3, 5, 2, 1, 4])  # [1, 2, 3, 4, 5]
+blueprint_approval([7, 4, 6, 2, 5])  # [2, 4, 5, 6, 7]
 ```
 
-**Approach:** Sort the complexity values from lowest to highest.
+**Approach:** Use `collections.deque` as a queue. Find the smallest waiting complexity. Move blueprints from the front to the back until that smallest blueprint reaches the front, then remove it and add it to the approval order. Repeat until the queue is empty.
 
-**Why it works:** Sorting produces exactly the required approval rule: every lower complexity appears before any higher one. Time: O(n log n); space: O(n) for the returned sorted list.
+```python
+from collections import deque
+
+def blueprint_approval(blueprints):
+    queue = deque(blueprints)
+    approval_order = []
+    while queue:
+        simplest = min(queue)
+        while queue[0] != simplest:
+            queue.append(queue.popleft())
+        approval_order.append(queue.popleft())
+    return approval_order
+```
+
+**Example walkthrough:** For `[3, 5, 2, 1, 4]`, move `3`, `5`, and `2` to the back. Approve `1`, leaving `[4, 3, 5, 2]`. Move `4`, `3`, and `5` to the back and approve `2`. Repeat to approve `3`, `4`, and `5`.
+
+**Why it works:** Each approved blueprint is the smallest still waiting, so no higher complexity is approved before a lower one. Duplicates are preserved, and an empty input returns `[]`. Time: O(n²), because finding the minimum and rotating the queue can each take O(n) per approval; space: O(n).
 
 ## 2. Build the Tallest Skyscraper — `build_skyscrapers(floors)`
 
@@ -26,7 +43,7 @@ build_skyscrapers([10, 5, 8, 3, 7, 2, 9])  # 4
 
 ## 3. Dream Corridor Design — `max_corridor_area(segments)`
 
-Return the maximum area between two segment boundaries: `min(height1, height2) × distance`.
+Return the maximum area between two segment boundaries: `min(segments[left], segments[right]) × (right - left)`. Distance is the difference between their indexes.
 
 ```python
 max_corridor_area([1, 8, 6, 2, 5, 4, 8, 3, 7])  # 49
