@@ -29,11 +29,23 @@ Use a short table to show the progression:
 
 These are examples from Week 4 Session 1. Write a new map for each set using its actual requirements.
 
+## Clear labels and concise navigation
+
+Apply these conventions to both Markdown and Python files:
+
+- Label every exercise **Problem N: Exact supplied title**. Add the function or class name and a short method label when useful, especially for similarly named exercises (for example, BFS versus DFS).
+- Start Markdown with a compact problem index/concept map containing the problem number, exact title, callable, and main concept. Link each row to its problem heading.
+- Use the same numbered title in a visible Python comment banner immediately before each solution. Separate **U — Understand**, **P — Plan**, and **I — Implement**; do not bury the title in a numbered U comment.
+- Clearly label shared imports/helpers and example checks so they cannot be mistaken for another problem. Label checks by problem number and title.
+- If two prompts use the same function name, preserve both implementations with an explicitly documented alias, or separate files. State how to use the required name for an individual submission.
+- Keep UPI as the core. Prefer a few concrete sentences, a short plan, and one useful trace over repeated explanations. Combine learning goal, concept, and recognition clue when they overlap. Keep mistakes, interview guidance, and questions brief; avoid repeating the same point across sections.
+- Put assumptions and prompt errors beside the affected problem. Never silently change an example or teach an incorrect hint.
+
 ## Template for each problem
 
 Copy and fill in the following structure. Keep simple problems short; expand the sections where students need more support.
 
-### [Number]. [Problem title] — `[function or class]`
+## Problem [Number]: [Exact problem title] — `[function or class]`
 
 **Learning goal:** After this problem, you should be able to [specific, observable skill].
 
@@ -136,6 +148,7 @@ Address cycles according to the prompt. If cycles are allowed, explain why a vis
 
 ## Review before saving
 
+- Are every problem title, UPI section, and example-check block clearly labeled in both files?
 - Does the file preserve the prompt's interface, rules, and examples?
 - Is the central concept explicit and connected to a requirement?
 - Are prerequisites explained before they are used?
